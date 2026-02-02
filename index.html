@@ -3,62 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio | Automação WhatsApp n8n</title>
+    <title>Portfólio | Automação n8n & WhatsApp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        body { background-color: #000000; }
+        .glass-card { background: #0a0a0a; border: 1px solid #1f2937; }
+        code { font-family: 'Fira Code', monospace; }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans">
+<body class="text-gray-300 font-sans leading-relaxed">
 
-    <div class="max-w-4xl mx-auto py-12 px-6">
+    <div class="max-w-4xl mx-auto py-16 px-6">
         <!-- Header -->
-        <header class="mb-12 border-b border-slate-700 pb-6">
-            <h1 class="text-4xl font-bold text-emerald-400">Integração WhatsApp + n8n</h1>
-            <p class="mt-2 text-slate-400 text-lg">Automação de mensagens via HTTP Request utilizando API Uzapi.</p>
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight">
+                Integração <span class="text-green-500">WhatsApp</span> + n8n
+            </h1>
+            <p class="text-gray-500 text-xl">Documentação técnica para envio de mensagens via API REST</p>
         </header>
 
-        <!-- Seção: O Projeto -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-semibold mb-4">🚀 Sobre o Projeto</h2>
-            <p class="text-slate-300 leading-relaxed">
-                Este projeto demonstra a capacidade de integrar ferramentas de automação low-code (n8n) com APIs REST para comunicação em tempo real via WhatsApp. Ideal para notificações de vendas, alertas de sistema e bots de atendimento.
-            </p>
-        </section>
-
-        <!-- Seção: Configuração -->
-        <section class="mb-10 grid md:grid-cols-2 gap-6">
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                <h3 class="text-emerald-400 font-bold mb-2">Endpoint</h3>
-                <code class="text-sm bg-slate-900 p-2 rounded block">POST /sendText</code>
-            </div>
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                <h3 class="text-emerald-400 font-bold mb-2">Autenticação</h3>
-                <p class="text-sm">Header Auth: <span class="text-slate-400 font-mono italic">apitoken</span></p>
+        <!-- Passos Iniciais -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-green-500 pl-4">1. Configuração Uzapi</h2>
+            <div class="glass-card p-6 rounded-2xl">
+                <p class="mb-4">Primeiro, realize o cadastro na <a href="https://uzapi.com.br" class="text-green-400 underline" target="_blank">Uzapi</a> e configure sua instância no painel:</p>
+                <ul class="space-y-3 text-sm">
+                    <li><strong class="text-white">Session:</strong> Identificador único (ex: <code>empresa1</code>).</li>
+                    <li><strong class="text-white">SessionKey:</strong> Chave de segurança (ex: <code>empresa1</code>).</li>
+                    <li><strong class="text-white">Token:</strong> Chave mestre fornecida via e-mail/painel.</li>
+                </ul>
             </div>
         </section>
 
-        <!-- Seção: Código -->
-        <section class="mb-10">
-            <h2 class="text-2xl font-semibold mb-4">💻 Estrutura do Payload (JSON)</h2>
-            <div class="rounded-lg overflow-hidden shadow-2xl">
-                <pre><code class="language-json">
-{
-  "session": "empresa1",
+        <!-- Configuração n8n -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-green-500 pl-4">2. Parâmetros n8n (HTTP Request)</h2>
+            <div class="glass-card p-6 rounded-2xl space-y-6">
+                
+                <!-- HTTP Method & URL -->
+                <div>
+                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Endpoint</h3>
+                    <div class="bg-black p-4 rounded-lg border border-gray-800">
+                        <p class="text-sm font-mono text-gray-400">Method: <span class="text-green-400">POST</span></p>
+                        <p class="text-sm font-mono text-gray-400">URL: <span class="text-blue-400">SUA_URL_UZAPI/sendText</span></p>
+                    </div>
+                </div>
+
+                <!-- Headers -->
+                <div>
+                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Header Auth (Generic)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-800">
+                                    <th class="py-2 text-white">Name</th>
+                                    <th class="py-2 text-white">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-400">
+                                <tr class="border-b border-gray-900">
+                                    <td class="py-2">apitoken</td>
+                                    <td class="py-2 italic">Sua Session do Endpoint</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2">sessionkey</td>
+                                    <td class="py-2 italic">Sua SessionKey do Endpoint</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- JSON Body -->
+                <div>
+                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Body Content (JSON)</h3>
+                    <div class="rounded-lg overflow-hidden border border-gray-800">
+                        <pre class="!bg-black !m-0"><code class="language-json">{
+  "session": "sua_session",
   "number": "5511999999999",
-  "text": "Olá! Esta é uma mensagem automatizada via n8n."
-}
-                </code></pre>
+  "text": "{{ JSON.stringify($json.mensagem) }}"
+}</code></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Botão Action -->
-        <footer class="text-center mt-16">
-            <a href="https://uzapi.com.br" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 px-8 rounded-full transition duration-300 inline-block">
-                Ver Documentação da Uzapi
-            </a>
+        <!-- Footer Footer -->
+        <footer class="text-center pt-10 border-t border-gray-900">
+            <p class="text-gray-600 text-sm">
+                Projeto desenvolvido para portfólio técnico. 
+                Utilizando <a href="https://n8n.io" class="hover:text-white">n8n</a> & <a href="https://uzapi.com.br" class="hover:text-white">Uzapi</a>.
+            </p>
         </footer>
     </div>
 
-    <!-- Scripts para Realce de Código -->
+    <!-- Scripts de Estilo de Código -->
     <script src="https://cdnjs.cloudflare.com"></script>
     <script src="https://cdnjs.cloudflare.com"></script>
 </body>
