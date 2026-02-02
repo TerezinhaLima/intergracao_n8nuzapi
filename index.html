@@ -3,102 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio | Automação n8n & WhatsApp</title>
+    <title>Portfólio | Automação WhatsApp n8n</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
     <style>
-        body { background-color: #000000; }
-        .glass-card { background: #0a0a0a; border: 1px solid #1f2937; }
-        code { font-family: 'Fira Code', monospace; }
+        body { background-color: #000000; color: #d1d5db; }
+        .glass-card { background: #0a0a0a; border: 1px solid #1f2937; border-radius: 1rem; padding: 1.5rem; }
+        .accent-text { color: #10b981; } /* Emerald-500 */
+        code { font-family: 'Fira Code', monospace; background: #1a1a1a; padding: 0.2rem 0.4rem; border-radius: 4px; color: #e5e7eb; }
     </style>
 </head>
-<body class="text-gray-300 font-sans leading-relaxed">
+<body class="font-sans antialiased">
 
-    <div class="max-w-4xl mx-auto py-16 px-6">
+    <div class="max-w-4xl mx-auto py-12 px-6">
         <!-- Header -->
-        <header class="text-center mb-16">
-            <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight">
-                Integração <span class="text-green-500">WhatsApp</span> + n8n
-            </h1>
-            <p class="text-gray-500 text-xl">Documentação técnica para envio de mensagens via API REST</p>
+        <header class="mb-16 border-b border-gray-800 pb-8">
+            <h1 class="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Conectar WhatsApp via <span class="accent-text">n8n</span></h1>
+            <p class="text-gray-500">Documentação de integração utilizando HTTP Request e API <a href="https://uzapi.com.br" class="underline hover:text-white" target="_blank">Uzapi</a></p>
         </header>
 
-        <!-- Passos Iniciais -->
+        <!-- Seção 1: Primeiros Passos -->
         <section class="mb-12">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-green-500 pl-4">1. Configuração Uzapi</h2>
-            <div class="glass-card p-6 rounded-2xl">
-                <p class="mb-4">Primeiro, realize o cadastro na <a href="https://uzapi.com.br" class="text-green-400 underline" target="_blank">Uzapi</a> e configure sua instância no painel:</p>
-                <ul class="space-y-3 text-sm">
-                    <li><strong class="text-white">Session:</strong> Identificador único (ex: <code>empresa1</code>).</li>
-                    <li><strong class="text-white">SessionKey:</strong> Chave de segurança (ex: <code>empresa1</code>).</li>
-                    <li><strong class="text-white">Token:</strong> Chave mestre fornecida via e-mail/painel.</li>
-                </ul>
+            <h2 class="text-2xl font-bold text-white mb-6">🚀 Primeiros Passos</h2>
+            <div class="glass-card space-y-4">
+                <div class="flex gap-3">
+                    <span class="accent-text font-bold">01.</span>
+                    <p><strong class="text-white">Cadastro:</strong> Acesse o site da <a href="https://uzapi.com.br" class="accent-text underline">Uzapi</a> e realize o cadastro para testar a API gratuita.</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="accent-text font-bold">02.</span>
+                    <p><strong class="text-white">Acesso:</strong> Entre na URL fornecida por e-mail utilizando as credenciais enviadas pela plataforma.</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="accent-text font-bold">03.</span>
+                    <p><strong class="text-white">Conexão:</strong> No painel da Uzapi, conecte seu WhatsApp lendo o QR Code.</p>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-800">
+                    <h3 class="text-sm font-semibold uppercase text-gray-500 mb-4">Dados de Conexão (Exemplos)</h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <li class="bg-black p-3 rounded-lg border border-gray-800 text-xs">
+                            <span class="block text-gray-500 mb-1">Session</span>
+                            <span class="text-white font-mono">empresa1</span>
+                        </li>
+                        <li class="bg-black p-3 rounded-lg border border-gray-800 text-xs">
+                            <span class="block text-gray-500 mb-1">SessionKey</span>
+                            <span class="text-white font-mono">empresa1</span>
+                        </li>
+                        <li class="bg-black p-3 rounded-lg border border-gray-800 text-xs">
+                            <span class="block text-gray-500 mb-1">Token</span>
+                            <span class="text-white font-mono">Código Único Úzapi</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <!-- Configuração n8n -->
+        <!-- Seção 2: Configuração n8n -->
         <section class="mb-12">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-green-500 pl-4">2. Parâmetros n8n (HTTP Request)</h2>
-            <div class="glass-card p-6 rounded-2xl space-y-6">
-                
-                <!-- HTTP Method & URL -->
-                <div>
-                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Endpoint</h3>
-                    <div class="bg-black p-4 rounded-lg border border-gray-800">
-                        <p class="text-sm font-mono text-gray-400">Method: <span class="text-green-400">POST</span></p>
-                        <p class="text-sm font-mono text-gray-400">URL: <span class="text-blue-400">SUA_URL_UZAPI/sendText</span></p>
+            <h2 class="text-2xl font-bold text-white mb-6">⚙️ Configuração no n8n (HTTP Request)</h2>
+            
+            <div class="space-y-8">
+                <!-- 1. Parâmetros Básicos -->
+                <div class="glass-card">
+                    <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 1. Parâmetros Básicos
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm">
+                        <p><span class="text-gray-500">Method:</span> <span class="font-mono text-white">POST</span></p>
+                        <p><span class="text-gray-500">URL:</span> <span class="font-mono text-white">URL_DO_ENDPOINT/sendText</span></p>
+                        <p><span class="text-gray-500">Authentication:</span> <span class="font-mono text-white">Generic Credential Type</span></p>
+                        <p><span class="text-gray-500">Generic Auth Type:</span> <span class="font-mono text-white">Header Auth</span></p>
                     </div>
                 </div>
 
-                <!-- Headers -->
-                <div>
-                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Header Auth (Generic)</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm border-collapse">
+                <!-- 2. Cabeçalhos -->
+                <div class="glass-card">
+                    <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 2. Cabeçalhos (Headers)
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 italic">Selecione "Send Headers" e adicione em "Specify Headers":</p>
+                    <div class="bg-black border border-gray-800 rounded-lg overflow-hidden">
+                        <table class="w-full text-left text-xs font-mono">
                             <thead>
-                                <tr class="border-b border-gray-800">
-                                    <th class="py-2 text-white">Name</th>
-                                    <th class="py-2 text-white">Value</th>
+                                <tr class="bg-gray-900 text-gray-300">
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3">Value</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-400">
+                            <tbody>
                                 <tr class="border-b border-gray-900">
-                                    <td class="py-2">apitoken</td>
-                                    <td class="py-2 italic">Sua Session do Endpoint</td>
+                                    <td class="p-3 accent-text">apitoken</td>
+                                    <td class="p-3">Sua Session fornecida no endpoint</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2">sessionkey</td>
-                                    <td class="py-2 italic">Sua SessionKey do Endpoint</td>
+                                    <td class="p-3 accent-text">sessionkey</td>
+                                    <td class="p-3">Sua SessionKey fornecida no endpoint</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- JSON Body -->
-                <div>
-                    <h3 class="text-green-500 font-semibold mb-2 uppercase text-xs tracking-widest">Body Content (JSON)</h3>
-                    <div class="rounded-lg overflow-hidden border border-gray-800">
-                        <pre class="!bg-black !m-0"><code class="language-json">{
-  "session": "sua_session",
-  "number": "5511999999999",
-  "text": "{{ JSON.stringify($json.mensagem) }}"
-}</code></pre>
+                <!-- 3. Corpo da Requisição -->
+                <div class="glass-card">
+                    <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> 3. Corpo da Requisição (Body)
+                    </h3>
+                    <div class="text-sm space-y-1 mb-4">
+                        <p><span class="text-gray-500">Body Content Type:</span> <span class="text-white font-mono uppercase">JSON</span></p>
+                        <p><span class="text-gray-500">Specify Body:</span> <span class="text-white font-mono">Using JSON</span></p>
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-gray-800 shadow-2xl">
+                        <pre class="!bg-black !m-0"><code class="language-json">
+{ 
+  "session": "sua_session_aqui", 
+  "number": "numero_do_telefone", 
+  "text": {{ JSON.stringify($json.mensagem) }} 
+}
+                        </code></pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer Footer -->
-        <footer class="text-center pt-10 border-t border-gray-900">
-            <p class="text-gray-600 text-sm">
-                Projeto desenvolvido para portfólio técnico. 
-                Utilizando <a href="https://n8n.io" class="hover:text-white">n8n</a> & <a href="https://uzapi.com.br" class="hover:text-white">Uzapi</a>.
-            </p>
+        <!-- Rodapé -->
+        <footer class="text-center text-gray-600 text-xs mt-20">
+            &copy; 2024 - Documentação de Automação para Portfólio
         </footer>
     </div>
 
-    <!-- Scripts de Estilo de Código -->
     <script src="https://cdnjs.cloudflare.com"></script>
     <script src="https://cdnjs.cloudflare.com"></script>
 </body>
