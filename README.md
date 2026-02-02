@@ -1,36 +1,48 @@
-Conectando WhatsApp ao n8n via HTTP Request (Uzapi)
-Este guia prático detalha como realizar a integração do seu WhatsApp com o n8n utilizando a infraestrutura da Uzapi.
-1. Cadastro e Configuração Inicial
-Acesse o site oficial da Uzapi e realize seu cadastro para obter acesso à API gratuita de testes.
-Após o cadastro, você receberá por e-mail a URL do Painel, suas credenciais de acesso e o seu Token de autenticação.
-2. Configurando a Conexão no Painel Uzapi
-Ao acessar o painel, você precisará definir os identificadores da sua instância:
-Session: Nome de identificação (ex: empresa1). Use apenas letras minúsculas, sem espaços ou acentos.
-SessionKey: Chave de segurança (pode ser igual à Session, ex: empresa1).
-Token: Código único fornecido pela Uzapi após a ativação.
-Ação: Siga as instruções do painel para ler o QR Code e conectar seu dispositivo WhatsApp.
-3. Configuração no n8n (Nó HTTP Request)
-No seu workflow do n8n, adicione um nó do tipo HTTP Request e preencha com as seguintes informações:
-Informações Principais
-Method: POST
-URL: SUA_URL_DO_ENDPOINT/sendText
-Authentication: Generic Credential Type
-Generic Auth Type: Header Auth
-Headers (Parâmetros de Cabeçalho)
-No campo Specify Headers, adicione os seguintes parâmetros:
-Name	Value
-apitoken	Seu Token fornecido no endpoint
-sessionkey	Sua SessionKey definida no painel
-Body (Corpo da Requisição)
-Body Content Type: JSON
-Specify Body: Using JSON
-JSON:
-json
+
+
+# Integração WhatsApp com n8n via Uzapi
+
+Este guia fornece o passo a passo para conectar o WhatsApp ao **n8n** utilizando a API da [Uzapi](https://uzapi.com.br).
+
+## 🚀 Primeiros Passos
+
+1. **Cadastro:** Acesse o site da [Uzapi](https://uzapi.com.br) e realize o cadastro para testar a API gratuita.
+2. **Acesso:** Entre na URL fornecida por e-mail utilizando as credenciais enviadas pela plataforma.
+3. **Conexão:** No painel, conecte seu WhatsApp lendo o QR Code.
+
+### Dados de Conexão (Exemplos)
+*   **Session:** `empresa1` (Minúsculo, sem espaços ou acentos).
+*   **SessionKey:** `empresa1` (Pode ser igual à session).
+*   **Token:** Código único fornecido no painel da Uzapi.
+
+---
+
+## ⚙️ Configuração no n8n (HTTP Request)
+
+Adicione um nó **HTTP Request** no seu workflow e utilize as seguintes configurações:
+
+### 1. Parâmetros Básicos
+- **Method:** `POST`
+- **URL:** `URL_FORNECIDA_NO_ENDPOINT/sendText`
+- **Authentication:** `Generic Credential Type`
+- **Generic Auth Type:** `Header Auth`
+
+### 2. Cabeçalhos (Headers)
+Selecione **Send Headers** e adicione em **Specify Headers**:
+
+| Name | Value |
+| :--- | :--- |
+| `apitoken` | Sua Session fornecida no endpoint |
+| `sessionkey` | Sua SessionKey fornecida no endpoint |
+
+### 3. Corpo da Requisição (Body)
+- **Body Content Type:** `JSON`
+- **Specify Body:** `Using JSON`
+
+**JSON:**
+```json
 { 
   "session": "sua_session_aqui", 
-  "number": "5511999999999", 
+  "number": "numero_do_telefone", 
   "text": {{ JSON.stringify($json.mensagem) }} 
 }
-Use o código com cuidado.
-
-
